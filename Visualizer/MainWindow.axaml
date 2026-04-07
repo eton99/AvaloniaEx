@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="Visualizer.MainWindow"
+		xmlns:local="using:Visualizer"
+		xmlns:controls="using:AvaloniaEx.Controls"
+		x:DataType="local:MainWindow+Data"
+		WindowStartupLocation="CenterScreen"
+		Title="Visualizer">
+	<!--	<Design.DataContext>
+	<local:MainWindow.Data/>
+	</Design.DataContext>-->
+	<StackPanel>
+		<controls:LookupEdit Margin="6"
+							 ItemsSource="{Binding Items}"
+							 SelectedItem="{Binding Current}">
+			<!--<ComboBox.ItemsPanel>
+
+			<ItemsPanelTemplate>
+			<StackPanel>
+			<ItemsPresenter />
+			<Button Content="Add" Command="{Binding AddItemCommand}" />
+			</StackPanel>
+			</ItemsPanelTemplate>
+
+			</ComboBox.ItemsPanel>-->
+			<ComboBox.ItemTemplate>
+				<DataTemplate x:DataType="local:MainWindow+Data+DataItem">
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+					</StackPanel>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</controls:LookupEdit>
+		<ComboBox PlaceholderText="No item found" ItemsSource="{Binding Items}"
+				  SelectedItem="{Binding Current}"/>
+	</StackPanel>
+
+</Window>

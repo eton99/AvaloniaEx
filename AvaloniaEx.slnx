@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AvaloniaEx/AvaloniaEx.csproj" />
+  <Project Path="Visualizer/Visualizer.csproj" Id="e548398a-db48-4641-89d3-c86effd34f96" />
+</Solution>

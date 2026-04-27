@@ -2,40 +2,80 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="clr-namespace:Visualizer.ViewModels"
 		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		x:Class="Visualizer.MainWindow"
 		xmlns:local="using:Visualizer"
-		xmlns:controls="using:AvaloniaEx.Controls"
-		x:DataType="local:MainWindow+Data"
 		WindowStartupLocation="CenterScreen"
+		x:DataType="vm:MainWindowViewModel"
+		TransparencyLevelHint="AcrylicBlur"
+		ExtendClientAreaToDecorationsHint="True"
+		WindowDecorations="Full"
+		Background="Transparent"
 		Title="Visualizer">
-	<!--	<Design.DataContext>
-	<local:MainWindow.Data/>
-	</Design.DataContext>-->
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+
 	<StackPanel>
-		<controls:LookupEdit Margin="6"
-							 ItemsSource="{Binding Items}"
-							 SelectedItem="{Binding Current}">
-			<!--<ComboBox.ItemsPanel>
 
-			<ItemsPanelTemplate>
-			<StackPanel>
-			<ItemsPresenter />
-			<Button Content="Add" Command="{Binding AddItemCommand}" />
-			</StackPanel>
-			</ItemsPanelTemplate>
+		<StackPanel Orientation="Horizontal"  WindowDecorationProperties.ElementRole="User">
+			<Button Content="☰" Command="{Binding TogglePane}"
+							Width="48" HorizontalAlignment="Left"  HorizontalContentAlignment="Center"/>
+			<TextBlock FontWeight="Bold" VerticalAlignment="Center">Title Here</TextBlock>
+			<TextBlock Margin="10, 0, 0, 0" VerticalAlignment="Center">v. </TextBlock>
+			<TextBlock Name="lblVersion" Foreground="Lime" 
+					   Margin="0, 0, 10, 0" VerticalAlignment="Center">1.14</TextBlock>
+		</StackPanel>
+		<SplitView	IsPaneOpen="{Binding IsPaneOpen}"  WindowDecorationProperties.ElementRole="User"
+				   DisplayMode="CompactInline"
+				   CompactPaneLength="0"
+				   OpenPaneLength="200">
+			<SplitView.Pane>
+				<StackPanel>
+					<TreeView Classes="FullExpandedTree"
+							  IsVisible="{Binding IsPaneOpen}"
+							  Margin="10"
+							  ItemsSource="{Binding Nodes}"
+							  SelectedItems="{Binding SelectedNodes}"
+							  SelectionMode="Single">
+						<TreeView.ItemTemplate>
+							<TreeDataTemplate ItemsSource="{Binding SubNodes}">
+								<TextBlock Text="{Binding Title}" />
+							</TreeDataTemplate>
+						</TreeView.ItemTemplate>
 
-			</ComboBox.ItemsPanel>-->
-			<ComboBox.ItemTemplate>
-				<DataTemplate x:DataType="local:MainWindow+Data+DataItem">
-					<StackPanel Orientation="Horizontal" Spacing="10">
-						<TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
-					</StackPanel>
-				</DataTemplate>
-			</ComboBox.ItemTemplate>
-		</controls:LookupEdit>
-		<ComboBox PlaceholderText="No item found" ItemsSource="{Binding Items}"
-				  SelectedItem="{Binding Current}"/>
+						<TreeView.Styles>
+							<Style Selector="TreeViewItem">
+								<Setter Property="IsExpanded" Value="True" />
+							</Style>
+						</TreeView.Styles>
+					</TreeView>
+				</StackPanel>
+			</SplitView.Pane>
+
+			<Expander VerticalAlignment="Top" >
+				<Expander.Header >
+					Additional Search
+				</Expander.Header>
+				<Grid RowDefinitions="*,*" ColumnDefinitions="150,*">
+					<TextBlock Grid.Row="0" Grid.Column="0"
+							   VerticalAlignment="Center">Search</TextBlock>
+					<TextBox Grid.Row="0" Grid.Column="1"
+							 PlaceholderText="Search text" Width="200" />
+					<TextBlock Grid.Row="1" Grid.Column="0"
+							   VerticalAlignment="Center">Case sensitive?</TextBlock>
+					<CheckBox Grid.Row="1" Grid.Column="1" />
+				</Grid>
+			</Expander>
+		</SplitView>
 	</StackPanel>
 
+
+	<Window.Styles>
+		<Style Selector="WindowDrawnDecorations /template/ Panel#PART_TitleTextPanel > TextBlock">
+			<Setter Property="IsVisible" Value="False" />
+		</Style>
+	</Window.Styles>
 </Window>

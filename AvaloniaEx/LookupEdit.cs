@@ -15,7 +15,7 @@ namespace AvaloniaEx.Controls;
 public class LookupEdit : ComboBox
 {
     protected override System.Type StyleKeyOverride => typeof(ComboBox);
-    private readonly TextBox searchBox = new TextBox() { Watermark = "Search..." };
+    private readonly TextBox searchBox = new TextBox() { PlaceholderText = "Search..." };
     private Popup? _popup;
     public string? FilterValue => this.searchBox.Text;
     /// <summary> Set filter textbox on the top of popup visible. </summary>

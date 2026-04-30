@@ -43,5 +43,11 @@ public partial class MainWindow : Window
 
     private void OnAddNewClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        MessageBox.Show(panel, "abc");
+    }
+
+    private void OnAddNewClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        btn2.Content = "Button Random: " + new System.Random(System.DateTime.UtcNow.Millisecond).Next().ToString();
     }
 }

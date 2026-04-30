@@ -18,59 +18,42 @@
 	</Design.DataContext>
 
 
-	<StackPanel>
+	<Grid RowDefinitions="Auto, *">
 
-		<StackPanel Orientation="Horizontal"  WindowDecorationProperties.ElementRole="User">
+		<StackPanel Grid.Row="0" Orientation="Horizontal"  WindowDecorationProperties.ElementRole="User">
 			<Button Content="☰" Command="{Binding TogglePane}"
-							Width="48" HorizontalAlignment="Left"  HorizontalContentAlignment="Center"/>
+					Width="48" HorizontalAlignment="Left"  HorizontalContentAlignment="Center"/>
 			<TextBlock FontWeight="Bold" VerticalAlignment="Center">Title Here</TextBlock>
 			<TextBlock Margin="10, 0, 0, 0" VerticalAlignment="Center">v. </TextBlock>
-			<TextBlock Name="lblVersion" Foreground="Lime" 
+			<TextBlock Name="lblVersion" Foreground="Lime"
 					   Margin="0, 0, 10, 0" VerticalAlignment="Center">1.14</TextBlock>
 		</StackPanel>
-		<SplitView	IsPaneOpen="{Binding IsPaneOpen}"  WindowDecorationProperties.ElementRole="User"
-				   DisplayMode="CompactInline"
-				   CompactPaneLength="0"
-				   OpenPaneLength="200">
-			<SplitView.Pane>
-				<StackPanel>
-					<TreeView Classes="FullExpandedTree"
-							  IsVisible="{Binding IsPaneOpen}"
-							  Margin="10"
-							  ItemsSource="{Binding Nodes}"
-							  SelectedItems="{Binding SelectedNodes}"
-							  SelectionMode="Single">
-						<TreeView.ItemTemplate>
-							<TreeDataTemplate ItemsSource="{Binding SubNodes}">
-								<TextBlock Text="{Binding Title}" />
-							</TreeDataTemplate>
-						</TreeView.ItemTemplate>
+		<Grid Grid.Row="1" ColumnDefinitions="Auto, *" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+			<TreeView Classes="FullExpandedTree"
+					  IsVisible="{Binding IsPaneOpen}"
+					  Margin="10" Grid.Column="0"
+					  ItemsSource="{Binding Nodes}"
+					  SelectedItems="{Binding SelectedNodes}"
+					  SelectionMode="Single">
+				<TreeView.ItemTemplate>
+					<TreeDataTemplate ItemsSource="{Binding SubNodes}">
+						<TextBlock Text="{Binding Title}" />
+					</TreeDataTemplate>
+				</TreeView.ItemTemplate>
 
-						<TreeView.Styles>
-							<Style Selector="TreeViewItem">
-								<Setter Property="IsExpanded" Value="True" />
-							</Style>
-						</TreeView.Styles>
-					</TreeView>
-				</StackPanel>
-			</SplitView.Pane>
-
-			<Expander VerticalAlignment="Top" >
-				<Expander.Header >
-					Additional Search
-				</Expander.Header>
-				<Grid RowDefinitions="*,*" ColumnDefinitions="150,*">
-					<TextBlock Grid.Row="0" Grid.Column="0"
-							   VerticalAlignment="Center">Search</TextBlock>
-					<TextBox Grid.Row="0" Grid.Column="1"
-							 PlaceholderText="Search text" Width="200" />
-					<TextBlock Grid.Row="1" Grid.Column="0"
-							   VerticalAlignment="Center">Case sensitive?</TextBlock>
-					<CheckBox Grid.Row="1" Grid.Column="1" />
-				</Grid>
-			</Expander>
-		</SplitView>
-	</StackPanel>
+				<TreeView.Styles>
+					<Style Selector="TreeViewItem">
+						<Setter Property="IsExpanded" Value="True" />
+					</Style>
+				</TreeView.Styles>
+			</TreeView>
+			<Panel Name="panel" Grid.Column="1" Background="SaddleBrown">
+				<Button HorizontalAlignment="Center" Content="Click Here for message" Click="OnAddNewClick" />
+				<Button Name="btn2" Margin="20" VerticalAlignment="Top" 
+						Content="This button cannot be click if message box is showing" Click="OnAddNewClick2" />
+			</Panel>
+		</Grid>
+	</Grid>
 
 
 	<Window.Styles>

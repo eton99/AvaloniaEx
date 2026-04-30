@@ -9,7 +9,7 @@ namespace Visualizer.ViewModels;
 
 internal class MainWindowViewModel : INotifyPropertyChanged
 {
-    private bool isPaneOpen = true;
+    private bool isPaneOpen = false;
     public bool IsPaneOpen
     {
         get => isPaneOpen;

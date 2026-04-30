@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:AvaloniaEx.Controls"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="AvaloniaEx.Controls.DialogMessage"
+			 x:DataType="local:DialogMessage"        >
+	<Design.DataContext>
+		<local:DialogMessage/>
+	</Design.DataContext>
+	<Grid RowDefinitions="*, Auto, *">
+		<Border Background="Transparent" Grid.Row="0" />
+
+		<Border Grid.Row="1" Background="Gainsboro" BoxShadow="0 3 4 2 #EFEFEF" >
+			<Grid RowDefinitions="Auto, Auto, Auto"
+				  ColumnDefinitions="Auto, *"
+				  Margin="30 5 30 5">
+				<Image Grid.Column="0" Grid.RowSpan="3"
+					   Name="imgIcon" MaxWidth="128" IsVisible="False"/>
+				<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}"
+						   Padding="40, 5" FontWeight="SemiBold" FontSize="24"
+						   TextWrapping="Wrap" VerticalAlignment="Center" />
+				<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Message}"
+						   Padding="40, 5"
+						   TextWrapping="Wrap" VerticalAlignment="Center" />
+
+				<Grid Grid.Column="1" Grid.Row="2" ColumnDefinitions="*, *, *, *">
+					<StackPanel Grid.Column="2"  Orientation="Horizontal"
+								Margin="20 0 20 0"
+								HorizontalAlignment="Right" Spacing="8">
+
+						<Button IsVisible="False" Width="100" HorizontalContentAlignment="Center" Name="btnOK" Content="OK" Command="{Binding CommandOK}" />
+						<Button IsVisible="False" Width="100" HorizontalContentAlignment="Center" Name="btnAbort" Content="Abort" Command="{Binding CommandAbort}" >
+							<Button.Flyout>
+								<Flyout>Abort: </Flyout>
+							</Button.Flyout>
+						</Button>
+						<Button IsVisible="False" Name="btnRetry" Content="Retry" Command="{Binding CommandRetry}" />
+						<Button IsVisible="False" Name="btnIgnore" Content="Ignore" Command="{Binding CommandIgnore}" />
+
+						<Button IsVisible="False" Name="btnYes" Content="Yes" Command="{Binding CommandYes}" />
+						<Button IsVisible="False" Name="btnNo" Content="No" Command="{Binding CommandNo}" />
+						<Button IsVisible="False" Name="btnCancel" Content="Cancel" Command="{Binding CommandCancel}" />
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</Border>
+		<Border Background="Transparent" Grid.Row="2" />
+	</Grid>
+</UserControl>

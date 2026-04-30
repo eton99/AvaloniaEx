@@ -9,18 +9,22 @@ namespace Avalonia.Controls;
 /// <remarks> Both the <see cref="MessageBox"/> and it control must be placed in a <see cref="Panel"/></remarks>
 public static class MessageBox
 {
-    public static void Show(this Panel panel, string message)
-        => panel.Children.Add(new AvaloniaEx.Controls.DialogMessage(message, null, MessageBoxButtons.OK, MessageBoxIcon.None, 0));
+    public static void Show(this Control ctrl, string message)
+        => (ctrl.Parent as Panel)?.Children.Add(new AvaloniaEx.Controls.DialogMessage(message, null, MessageBoxButtons.OK, MessageBoxIcon.None, 0));
 
-    public static Task<DialogResult> Affirmative(this Panel panel, string message)
+    public static Task<DialogResult> Affirmative(this Control ctrl, string message)
     {
+        Panel? panel = ctrl.Parent as Panel;
+        System.Diagnostics.Debug.Assert(panel != null);
         AvaloniaEx.Controls.DialogMessage dlg = new AvaloniaEx.Controls.DialogMessage(message, "Please confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Stop, 1);
         panel.Children.Add(dlg);
         return dlg.DialogResult.Task;
     }
 
-    public static Task<DialogResult> Ask(this Panel panel, string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
+    public static Task<DialogResult> Ask(this Control ctrl, string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
     {
+        Panel? panel = ctrl.Parent as Panel;
+        System.Diagnostics.Debug.Assert(panel != null);
         AvaloniaEx.Controls.DialogMessage dlg = new AvaloniaEx.Controls.DialogMessage(message, title, buttons, icon, int.MaxValue);
         panel.Children.Add(dlg);
         return dlg.DialogResult.Task;
